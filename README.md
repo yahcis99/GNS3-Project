@@ -1,8 +1,12 @@
 ![Ansible](https://img.shields.io/badge/Automation-Ansible-blue?logo=ansible)
 ![Status](https://img.shields.io/badge/Build-Passing-brightgreen)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Cegep](https://img.shields.io/badge/Cégep_de_Sherbrooke-Institution-green)
+![Cegep](https://img.shields.io/badge/Cégep_de_Sherbrooke-Education-1DB954)
+
 ![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey?logo=linux)
 ![Team](https://img.shields.io/badge/Team-YPF-orange)
+
+
 Projet d’Intégration Linux – Déploiement Automatisé avec Ansible
 Présentation du projet
 
