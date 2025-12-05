@@ -1,0 +1,8 @@
+
+---
+- name: Déploiement du serveur MySQL
+  hosts: bdd
+  become: yes
+  roles:
+    - common
+    - bdd

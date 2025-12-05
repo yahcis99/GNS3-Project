@@ -1,0 +1,29 @@
+- name: Installer DHCP server
+  apt:
+    name: isc-dhcp-server
+    state: present
+
+- name: Configurer interface DHCP
+  lineinfile:
+    path: /etc/default/isc-dhcp-server
+    regexp: '^INTERFACESv4='
+    line: 'INTERFACESv4="ens3"'   # changer selon ta VM
+
+- name: S'assurer que le répertoire /etc/dhcp existe
+  file:
+    path: /etc/dhcp
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Copier dhcpd.conf
+  template:
+    src: dhcpd.conf.j2
+    dest: /etc/dhcp/dhcpd.conf
+
+- name: Redémarrer dhcp
+  service:
+    name: isc-dhcp-server
+    state: restarted
+

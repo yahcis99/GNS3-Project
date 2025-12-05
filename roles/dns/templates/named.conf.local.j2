@@ -1,0 +1,11 @@
+zone "{{ domain }}" {
+    type master;
+    file "/etc/bind/db.{{ domain }}";
+    allow-transfer { {{ dns_slave_ip }}; };
+};
+
+zone "{{ reverse_zone }}.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.10.0.0";
+    allow-transfer { {{ dns_slave_ip }}; };
+};

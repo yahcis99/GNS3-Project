@@ -1,0 +1,15 @@
+#SPDX-License-Identifier: MIT-0
+---
+- name: verifier que le service DHCP est actif
+  command: systemctl is-active isc-dhcp-server
+  register: dhcp_status
+
+- name: afficher le status du service
+  debug:
+    var: dhcp_status.stdout
+
+- hosts: localhost
+  become: true
+  remote_user: root
+  roles:
+    - dhcp

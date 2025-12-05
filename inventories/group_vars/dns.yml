@@ -1,0 +1,5 @@
+domain: "ypf.lab"
+dns_master_ip: "10.0.0.2"
+dns_slave_ip: "10.0.0.3"
+reverse_zone: "0.0.10"
+

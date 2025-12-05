@@ -1,0 +1,32 @@
+---
+- name: Installer Apache
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Activer et démarrer Apache
+  ansible.builtin.service:
+    name: apache2
+    state: started
+    enabled: true
+  become: true
+
+- name: S'assurer que le répertoire du site existe
+  ansible.builtin.file:
+    path: "{{ web_document_root }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: "0755"
+  become: true
+
+- name: Déployer la page web YPF
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: "{{ web_document_root }}/index.html"
+    owner: www-data
+    group: www-data
+    mode: "0644"
+  become: true

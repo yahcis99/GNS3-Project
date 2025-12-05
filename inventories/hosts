@@ -1,0 +1,17 @@
+[dns]
+dns1 ansible_host=10.0.0.2
+dns2 ansible_host=10.0.0.3
+
+[web]
+web1 ansible_host=10.0.0.4
+
+[dhcp]
+dhcp1 ansible_host=10.0.0.5
+
+[bdd]
+mysql1 ansible_host=10.0.0.6
+
+[all:vars]
+ansible_user=osboxes
+ansible_python_interpreter=/usr/bin/python3
+domain_name=ypf.lab

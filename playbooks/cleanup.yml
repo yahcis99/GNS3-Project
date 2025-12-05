@@ -1,0 +1,253 @@
+---
+
+- name: Cleanup - Réinitialiser les machines
+
+  hosts: all
+
+  become: true
+
+  tasks:
+
+    # === 1. Supprimer la tâche cron ===
+
+    - name: Supprimer la tâche cron de sauvegarde
+
+      ansible.builtin.cron:
+
+        name: "Sauvegarde MySQL via Ansible"
+
+        user: root
+
+        state: absent
+
+      ignore_errors: true
+
+    - name: Supprimer le script de sauvegarde
+
+      ansible.builtin.file:
+
+        path: "/usr/local/bin/backup_mysql.sh"
+
+        state: absent
+
+      ignore_errors: true
+
+    - name: Supprimer le fichier log des backups
+
+      ansible.builtin.file:
+
+        path: "/var/log/mysql_backup.log"
+
+        state: absent
+
+      ignore_errors: true
+
+    # === 2. Arrêter et désinstaller Apache ===
+
+    - name: Arrêter Apache
+
+      ansible.builtin.service:
+
+        name: apache2
+
+        state: stopped
+
+        enabled: false
+
+      ignore_errors: true
+
+
+    - name: Désinstaller Apache
+
+      ansible.builtin.apt:
+
+        name: apache2
+
+        state: absent
+
+        purge: true
+
+        autoremove: true
+
+      ignore_errors: true
+
+    # === 3. Arrêter et désinstaller MySQL ===
+
+    - name: Arrêter MySQL
+
+      ansible.builtin.service:
+
+        name: mysql
+
+        state: stopped
+
+        enabled: false
+
+      ignore_errors: true
+
+    - name: Désinstaller MySQL
+
+      ansible.builtin.apt:
+
+        name: mysql-server
+
+        state: absent
+
+        purge: true
+
+        autoremove: true
+
+      ignore_errors: true
+
+    # === 4. Supprimer le répertoire web et son contenu ===
+
+    - name: Supprimer le répertoire web
+
+      ansible.builtin.file:
+
+        path: "/var/www/html"
+
+        state: absent
+
+      ignore_errors: true
+
+    # === 5. Arrêter et désinstaller BIND9 ===
+
+    - name: Arrêter BIND9
+
+      ansible.builtin.service:
+
+        name: bind9
+
+        state: stopped
+
+        enabled: false
+
+      ignore_errors: true
+
+    - name: Désinstaller BIND9
+
+      ansible.builtin.apt:
+
+        name: bind9
+
+        state: absent
+
+        purge: true
+
+        autoremove: true
+
+      ignore_errors: true
+
+    # === 6. Arrêter et désinstaller DHCP Server ===
+
+    - name: Arrêter DHCP
+
+      ansible.builtin.service:
+
+        name: isc-dhcp-server
+
+        state: stopped
+
+        enabled: false
+
+      ignore_errors: true
+
+    - name: Désinstaller DHCP
+
+      ansible.builtin.apt:
+
+        name: isc-dhcp-server
+
+        state: absent
+
+        purge: true
+
+        autoremove: true
+
+      ignore_errors: true
+
+    # === 7. Supprimer les fichiers de configuration restants ===
+
+    - name: Supprimer les fichiers de configuration BIND9
+
+      ansible.builtin.file:
+
+        path: "/etc/bind"
+
+        state: absent
+
+      ignore_errors: true
+
+    - name: Supprimer les fichiers de configuration DHCP
+
+      ansible.builtin.file:
+
+        path: "/etc/dhcp"
+
+        state: absent
+
+      ignore_errors: true
+
+    - name: Supprimer les fichiers de backup MySQL
+
+      ansible.builtin.file:
+
+        path: "/var/backups/mysql"
+
+        state: absent
+
+      ignore_errors: true
+
+    # === 8. Nettoyer les paquets installés par le rôle common ===
+
+    - name: Désinstaller les outils de base
+
+      ansible.builtin.apt:
+
+        name:
+
+          - vim
+
+          - curl
+
+          - net-tools
+
+          - dnsutils
+
+        state: absent
+
+        purge: true
+
+        autoremove: true
+
+    # === 9. Nettoyer les journaux ===
+
+    - name: Nettoyer les journaux des services
+
+      ansible.builtin.shell: |
+
+        rm -rf /var/log/apache2/* \
+
+               /var/log/mysql/* \
+
+               /var/log/bind9/* \
+
+               /var/log/dhcp* \
+
+               /var/log/syslog.* \
+
+               /var/log/auth.log.*
+
+      ignore_errors: true
+
+    # === 10. Réinitialiser le cache apt ===
+
+    - name: Nettoyer le cache apt
+
+      ansible.builtin.apt:
+
+        autoclean: yes
+
+        autoremove: yes
+

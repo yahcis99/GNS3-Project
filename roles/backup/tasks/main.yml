@@ -1,0 +1,21 @@
+- name: Créer le dossier de sauvegarde
+  file:
+    path: "{{ backup_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Sauvegarder la base MySQL
+  command: >
+    mysqldump -u {{ db_user }} -p{{ db_password }} {{ db_name }}
+    > {{ backup_dir }}/{{ db_name }}-{{ ansible_date_time.date }}-{{ ansible_date_time.time }}.sql
+  tags: [backup]
+
+- name: Compresser la sauvegarde
+  command: >
+    gzip {{ backup_dir }}/{{ db_name }}-{{ ansible_date_time.date }}-{{ ansible_date_time.time }}.sql
+  tags: [backup]
+
+- name: Supprimer les sauvegardes de plus de 7 jours
+  shell: "find {{ backup_dir }} -type f -mtime +7 -delete"
+  tags: [cleanup, backup]
+

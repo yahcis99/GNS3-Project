@@ -1,0 +1,63 @@
+- name: Installer Bind9
+  apt:
+    name: bind9
+    state: present
+
+- name: Arrêter le service Bind9 pour configuration
+  service:
+    name: bind9
+    state: stopped
+
+- name: Copier named.conf.options
+  template:
+    src: named.conf.options.j2
+    dest: /etc/bind/named.conf.options
+
+- name: Configurer named.conf.local selon le rôle
+  template:
+    src: "{% if inventory_hostname == 'dns1' %}named.conf.local.j2{% else %}named.conf.local-slave.j2{% endif %}"
+    dest: /etc/bind/named.conf.local
+
+- name: Copier zone directe
+  template:
+    src: db.ypf.lab.j2
+    dest: /etc/bind/db.ypf.lab
+  when: inventory_hostname == "dns1"
+
+- name: Copier zone inverse
+  template:
+    src: db.10.0.0.j2
+    dest: /etc/bind/db.10.0.0
+  when: inventory_hostname == "dns1"
+
+- name: Vérifier la syntaxe de la configuration
+  command: named-checkconf
+  changed_when: false
+  register: config_check
+
+
+- name: Vérifier la zone directe
+  command: named-checkzone {{ domain }} /etc/bind/db.{{ domain }}
+  changed_when: false
+  register: zone_direct_check
+  when: inventory_hostname == "dns1"
+
+- name: Vérifier la zone inverse
+  command: named-checkzone 0.0.10.in-addr.arpa /etc/bind/db.10.0.0
+  changed_when: false
+  register: zone_reverse_check
+  when: inventory_hostname == "dns1"
+
+- name: Configurer le resolver local
+  copy:
+    content: |
+      nameserver 127.0.0.1
+      search {{ domain }}
+      options timeout:2 attempts:3
+    dest: /etc/resolv.conf
+
+- name: Redémarrer Bind9
+  service:
+    name: bind9
+    state: restarted
+

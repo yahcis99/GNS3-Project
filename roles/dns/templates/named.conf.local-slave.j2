@@ -1,0 +1,11 @@
+zone "{{ domain }}" {
+    type slave;
+    file "/var/cache/bind/db.{{ domain }}";
+    masters { {{ dns_master_ip }}; };
+};
+
+zone "{{ reverse_zone }}.in-addr.arpa" {
+    type slave;
+    file "/var/cache/bind/db.10.0.0";
+    masters { {{ dns_master_ip }}; };
+};

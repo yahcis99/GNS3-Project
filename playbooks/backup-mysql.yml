@@ -1,0 +1,43 @@
+
+---
+- name: Sauvegarde MySQL avec création DB et rotation
+  hosts: bdd
+  become: yes
+  vars:
+    backup_dir: /var/backups/mysql
+    db_name: ypf_db
+    mysql_socket: /var/run/mysqld/mysqld.sock
+    backup_file: "{{ backup_dir }}/{{ db_name }}-{{ ansible_date_time.date }}-{{ ansible_date_time.time }}.sql"
+
+  tasks:
+    # 1. Créer la base si absente
+    - name: Créer la base MySQL si absente
+      community.mysql.mysql_db:
+        name: "{{ db_name }}"
+        state: present
+        login_user: root
+        login_unix_socket: "{{ mysql_socket }}"
+      tags: [db, backup]
+
+    # 2. Créer le dossier de sauvegarde
+    - name: Créer le dossier de sauvegarde
+      file:
+        path: "{{ backup_dir }}"
+        state: directory
+        mode: '0755'
+
+    # 3. Sauvegarder la base MySQL (avec redirection et heure)
+    - name: Sauvegarder la base MySQL
+      shell: "mysqldump {{ db_name }} > {{ backup_file }}"
+      tags: [backup]
+
+    # 4. Compresser la sauvegarde si non compressée
+    - name: Compresser la sauvegarde si non compressée
+      shell: "if [ -f {{ backup_file }} ]; then gzip {{ backup_file }}; fi"
+      tags: [backup]
+
+    # 5. Supprimer les sauvegardes anciennes (>7 jours)
+    - name: Supprimer les sauvegardes anciennes
+      shell: "find {{ backup_dir }} -type f -mtime +7 -delete"
+      tags: [cleanup, backup]
+

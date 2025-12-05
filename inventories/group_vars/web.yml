@@ -1,0 +1,8 @@
+web_port: 80
+web_message: "Bienvenue sur le serveur web de ypf.lab !"
+web_page_title: "Équipe YPF - Laboratoire Administrateur Linux"
+web_team_name: "Équipe YPF"
+web_course_name: "Administrateur Linux"
+web_lab_name: "Laboratoire Web YPF"
+web_org_name: "Administrateur Linux – Environnement de laboratoire"
+web_document_root: "/var/www/html"

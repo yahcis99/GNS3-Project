@@ -1,0 +1,11 @@
+- name: Mise à jour des dépôts
+  apt:
+    update_cache: yes
+
+- name: Installer les outils de base
+  apt:
+    name:
+      - curl
+    state: present
+
+# tasks file for common

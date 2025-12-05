@@ -1,0 +1,4 @@
+backup_dir: /var/backups/mysql
+db_name: ypf_db
+db_user: root
+db_password: "TonMotDePasse"

@@ -1,0 +1,4 @@
+- import_playbook: dns.yml
+- import_playbook: dhcp.yml
+#- import_playbook: web.yml
+#- import_playbook: bdd.yml

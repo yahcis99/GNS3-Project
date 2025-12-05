@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ web_page_title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg: #020617;
+            --accent: #00e0ff;
+            --accent2: #22c55e;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top, #1e293b 0, #020617 45%, #000 100%);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .glow {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.28), transparent 55%),
+                radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.28), transparent 55%);
+            filter: blur(3px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(15, 23, 42, 0.96);
+            border-radius: 22px;
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            box-shadow:
+                0 22px 60px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(15, 23, 42, 0.9);
+            padding: 26px 26px 20px;
+            backdrop-filter: blur(14px);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px;
+            font-size: 11px;
+            border-radius: 999px;
+            border: 1px solid rgba(45, 212, 191, 0.5);
+            background: rgba(15, 118, 110, 0.2);
+            color: #a5f3fc;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 16px;
+        }
+
+        .badge-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            background: var(--accent2);
+            box-shadow: 0 0 16px var(--accent2);
+        }
+
+        .header {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+            gap: 24px;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .header-text h1 {
+            font-size: 2.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .highlight {
+            color: var(--accent);
+            text-shadow: 0 0 14px rgba(56, 189, 248, 0.9);
+        }
+
+        .header-text h2 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo {
+            position: relative;
+            width: 210px;
+            height: 210px;
+            border-radius: 26px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            background: radial-gradient(circle at 20% 0%, #1d4ed8, #020617);
+            box-shadow:
+                0 0 34px rgba(59, 130, 246, 0.7),
+                0 22px 40px rgba(15, 23, 42, 0.9);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-inner {
+            position: relative;
+            width: 70%;
+            height: 70%;
+            border-radius: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.35), transparent 55%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-main);
+            text-shadow:
+                0 0 10px rgba(15, 23, 42, 0.9),
+                0 0 22px rgba(56, 189, 248, 0.9);
+        }
+
+        .logo-tag {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.88);
+            border: 1px solid rgba(148, 163, 184, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+        }
+
+        .body {
+            margin-top: 10px;
+        }
+
+        .body p {
+            font-size: 0.98rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .pill {
+            font-size: 0.8rem;
+            padding: 4px 11px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.65);
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .pill--accent {
+            border-color: rgba(56, 189, 248, 0.9);
+            color: var(--accent);
+        }
+
+        .footer {
+            margin-top: 18px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(51, 65, 85, 0.9);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer span strong {
+            color: var(--accent);
+        }
+
+        @media (max-width: 800px) {
+            .header {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .logo-wrapper {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .card {
+                padding: 22px 18px 18px;
+            }
+            .header-text h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid"></div>
+    <div class="glow"></div>
+
+    <main class="card">
+        <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Laboratoire – {{ web_course_name }}</span>
+        </div>
+
+        <header class="header">
+            <div class="header-text">
+                <h1><span class="highlight">{{ web_team_name }}</span></h1>
+                <h2>Plateforme de démonstration pour l’administration de serveurs Linux et d’infrastructures réseau automatisées.</h2>
+            </div>
+
+            <div class="logo-wrapper">
+                <div class="logo">
+                    <div class="logo-inner">
+                        <div class="logo-text">YPF</div>
+                    </div>
+                    <div class="logo-tag">Équipe YPF</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="body">
+            <p>
+                Ce serveur web fait partie d’un <strong>laboratoire pédagogique</strong> réalisé dans le cadre du cours
+                <strong>« {{ web_course_name }} »</strong>. Il est déployé automatiquement à l’aide d’<strong>Ansible</strong>
+                afin de reproduire un environnement proche du monde professionnel : automatisation, cohérence et rapidité de déploiement.
+            </p>
+            <p>
+                Si vous voyez cette page, c’est que le playbook a fonctionné, le rôle <strong>web</strong> est opérationnel
+                et l’équipe <strong>YPF</strong> démontre sa capacité à mettre en place et administrer des services web
+                dans un contexte d’<strong>administration réseau technologique</strong>.
+            </p>
+
+            <div class="pill-row">
+                <div class="pill pill--accent">Déploiement via Ansible</div>
+                <div class="pill">Serveur web Apache</div>
+                <div class="pill">Administration Linux</div>
+                <div class="pill">Labo {{ web_team_name }}</div>
+                <div class="pill">Cours : {{ web_course_name }}</div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <span>{{ web_lab_name }} – <strong>{{ web_org_name }}</strong>.</span>
+            <span>Projet : <strong>{{ web_team_name }}</strong></span>
+        </footer>
+    </main>
+</body>
+</html>

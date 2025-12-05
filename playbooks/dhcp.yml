@@ -1,0 +1,7 @@
+- hosts: dhcp
+  become: yes
+  vars_files:
+    - inventories/groups_vars/dhcp.yml
+  roles:
+    - common
+    - dhcp
