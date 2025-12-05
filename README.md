@@ -1,11 +1,8 @@
 ![Ansible](https://img.shields.io/badge/Automation-Ansible-blue?logo=ansible)
 ![Status](https://img.shields.io/badge/Build-Passing-brightgreen)
-![Cegep](https://img.shields.io/badge/Cégep_de_Sherbrooke-Education-green)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey?logo=linux)
 ![Team](https://img.shields.io/badge/Team-YPF-orange)
-![Cegep](https://img.shields.io/badge/Cégep_de_Sherbrooke-IT_Teams-black)
-
-
 Projet d’Intégration Linux – Déploiement Automatisé avec Ansible
 Présentation du projet
 
@@ -54,16 +51,28 @@ Nom de domaine utilisé : ypf.lab
 
  Structure du dépôt Ansible
 ansible-ypf/
+
 ├── ansible.cfg
+
 ├── inventories/
+
+
 │   └── group_vars/
+
 │       ├── dhcp.yml
+
 │       ├── dns.yml
+
 │       └── web.yml
+
 │   └── hosts
+
 ├── playbooks/
+
 │   ├── backup-mysql.yml
+
 │   ├── cleanup.yml
+
 │   ├── dhcp.yml
 │   ├── dns.yml
 │   ├── install_backup_cron.yml
