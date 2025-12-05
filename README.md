@@ -4,7 +4,7 @@
 ![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey?logo=linux)
 ![Team](https://img.shields.io/badge/Team-YPF-orange)
 
-###Déploiement Automatisé avec Ansible
+#Déploiement Automatisé avec Ansible
 Présentation du projet
 
 Ce projet a été réalisé dans le cadre du cours d’Administration Linux.
