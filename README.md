@@ -51,42 +51,38 @@ Nom de domaine utilisé : ypf.lab
 
  Structure du dépôt Ansible
 ansible-ypf/
+## Structure du dépôt Ansible
 
-├── ansible.cfg
-
-├── inventories/
-
-
-│   └── group_vars/
-
-│       ├── dhcp.yml
-
-│       ├── dns.yml
-
-│       └── web.yml
-
-│   └── hosts
-
-├── playbooks/
-
-│   ├── backup-mysql.yml
-
-│   ├── cleanup.yml
-
-│   ├── dhcp.yml
-│   ├── dns.yml
-│   ├── install_backup_cron.yml
-│   ├── mysql.yml
-│   ├── site.yml
-│   └── web.yml
-├── roles/
-│   ├── backup/
-│   ├── bdd/
-│   ├── common/
-│   ├── dhcp/
-│   ├── dns/
-│   └── web/
-└── scripts/
+```
+ansible-ypf/
+ ├─ ansible.cfg
+ ├─ inventories/
+ │   ├─ hosts
+ │   └─ group_vars/
+ │       ├─ dhcp.yml
+ │       ├─ dns.yml
+ │       └─ web.yml
+ │
+ ├─ playbooks/
+ │   ├─ backup-mysql.yml
+ │   ├─ cleanup.yml
+ │   ├─ dhcp.yml
+ │   ├─ dns.yml
+ │   ├─ install_backup_cron.yml
+ │   ├─ mysql.yml
+ │   ├─ site.yml
+ │   └─ web.yml
+ │
+ ├─ roles/
+ │   ├─ backup/
+ │   ├─ bdd/
+ │   ├─ common/
+ │   ├─ dhcp/
+ │   ├─ dns/
+ │   └─ web/
+ │
+ └─ scripts/
+```
 
 
 Chaque rôle est entièrement automatisé via tasks, templates, handlers, et fichiers statiques.
