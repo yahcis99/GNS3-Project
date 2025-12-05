@@ -3,6 +3,7 @@
 ![Cegep](https://img.shields.io/badge/Cégep_de_Sherbrooke-Education-green)
 ![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey?logo=linux)
 ![Team](https://img.shields.io/badge/Team-YPF-orange)
+![Cegep](https://img.shields.io/badge/Cegep_Sherbrooke-✓-green)
 
 
 Projet d’Intégration Linux – Déploiement Automatisé avec Ansible
