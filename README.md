@@ -1,8 +1,6 @@
 ![Ansible](https://img.shields.io/badge/Automation-Ansible-blue?logo=ansible)
 ![Status](https://img.shields.io/badge/Build-Passing-brightgreen)
-![Cegep](https://img.shields.io/badge/Cégep_de_Sherbrooke-Institution-green)
-![Cegep](https://img.shields.io/badge/Cégep_de_Sherbrooke-Education-1DB954)
-
+![Cegep](https://img.shields.io/badge/Cégep_de_Sherbrooke-Education-green)
 ![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey?logo=linux)
 ![Team](https://img.shields.io/badge/Team-YPF-orange)
 
