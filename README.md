@@ -3,7 +3,8 @@
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey?logo=linux)
 ![Team](https://img.shields.io/badge/Team-YPF-orange)
-Projet d’Intégration Linux – Déploiement Automatisé avec Ansible
+
+###Déploiement Automatisé avec Ansible
 Présentation du projet
 
 Ce projet a été réalisé dans le cadre du cours d’Administration Linux.
