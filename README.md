@@ -1,0 +1,5 @@
+![Ansible](https://img.shields.io/badge/Automation-Ansible-blue?logo=ansible)
+![Status](https://img.shields.io/badge/Build-Passing-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey?logo=linux)
+![Team](https://img.shields.io/badge/Team-YPF-orange)
