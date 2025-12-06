@@ -4,55 +4,48 @@
 ![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey?logo=linux)
 ![Team](https://img.shields.io/badge/Team-YPF-orange)
 
-#Déploiement Automatisé avec Ansible
-Présentation du projet
+# Projet Ansible - Infrastructure Lab
 
-Ce projet a été réalisé dans le cadre du cours d’Administration Linux.
-L’objectif est de concevoir, automatiser et déployer une infrastructure complète à l’aide de Proxmox, GNS3, Linux, et Ansible.
+##  Description
+Playbooks Ansible pour déployer et gérer une infrastructure complète (Web, BDD, DNS, DHCP) dans un environnement de laboratoire.
 
-Le déploiement inclut plusieurs services réseau obligatoires :
+##  Déploiement Rapide
 
-Serveur DHCP
+### Prérequis
+- Ansible
+- Accès SSH aux hôtes cibles
+- Privilèges sudo
 
-Serveur DNS (zones directe + inverse)
+### 1. Cloner et configurer
 
-Serveur Web
+git clone [URL-DU-DEPOT]
+cd ansible-lab
 
-Serveur Base de données
+### 2. Éditer l'inventaire
 
-Client Ubuntu Desktop en DHCP
+nano innventories/host
 
-Sauvegardes automatisées
+### 3. Exécuter les playbooks
 
-Ainsi qu’un ou plusieurs services facultatifs selon l’équipe.
+# Déploiement complet
+ansible-playbook playbooks/site.yml
 
-Architecture du Projet
-Environnement de virtualisation
+# Nettoyer la configuration
+ansible-playbook  playbooks/cleanup.yml
 
-Le projet repose sur une machine physique exécutant :
+##  Services Déployés
 
-Proxmox VE (hyperviseur type 1)
-
-Une VM dédiée à GNS3 ESXi, utilisée pour simuler le réseau complet
-
-RAM dynamique allouée : 2 Go → 30 Go
-
-Tous les membres du groupe ont travaillé dans cet environnement partagé GNS3.
-
- Infrastructure réseau
-Élément	Adresse IP	Rôle
-dns01	10.0.0.2	DNS Master
-dns02	10.0.0.3	DNS Slave
-web01	10.0.0.4	Serveur Web
-dhcp01	10.0.0.5	Serveur DHCP
-db01	10.0.0.6	Serveur de Base de Données
-clients	DHCP	Clients Ubuntu Desktop
-
+```
+Élément    Adresse     IP	Rôle
+dns01      10.0.0.2	   DNS Master
+dns02      10.0.0.3	   DNS Slave
+web01	     10.0.0.4	   Serveur Web
+dhcp01	    10.0.0.5   	Serveur DHCP
+db01	      10.0.0.6	   Serveur de Base de Données
+```
 Nom de domaine utilisé : ypf.lab
 
- Structure du dépôt Ansible
-ansible-ypf/
-## Structure du dépôt Ansible
+##  Structure du dépôt Ansible
 
 ```
 ansible-ypf/
@@ -75,20 +68,20 @@ ansible-ypf/
  │   └─ web.yml
  │
  ├─ roles/
- │   ├─ backup/
- │   ├─ bdd/
- │   ├─ common/
- │   ├─ dhcp/
- │   ├─ dns/
- │   └─ web/
- │
- └─ scripts/
+     ├─ backup/
+     ├─ bdd/
+     ├─ common/
+     ├─ dhcp/
+     ├─ dns/
+     └─ web/
+ 
+ 
 ```
-
 
 Chaque rôle est entièrement automatisé via tasks, templates, handlers, et fichiers statiques.
 
  Détails des Rôles Ansible
+ 
 - Rôle common
 
 Configuration de base pour tous les serveurs :
@@ -96,10 +89,6 @@ Configuration de base pour tous les serveurs :
 Mise à jour
 
 Paquets essentiels
-
-Configuration réseau statique
-
-Configuration DNS local
 
 - Rôle dhcp
 
@@ -115,7 +104,7 @@ Redémarrage automatique via handler
 
 - Rôle dns
 
-Déploie un cluster DNS :
+Déploie deux serveur DNS :
 
 Installation de Bind9
 
@@ -123,7 +112,7 @@ Zone directe : ypf.lab
 
 Zone inverse : 10.0.0.in-addr.arpa
 
-Enregistrements A + PTR générés automatiquement
+Enregistrements A + PTR 
 
 Transmission (slave) pour dns02
 
@@ -133,7 +122,7 @@ Forwarding vers DNS du CÉGEP
 
 Déploiement du serveur web :
 
-Installation Apache/Nginx
+Installation Apache2
 
 Configuration VirtualHost
 
@@ -141,11 +130,9 @@ Déploiement d’une page web personnalisée
 
 - Rôle bdd
 
-Serveur MySQL / MariaDB :
+Serveur MySQL :
 
 Installation
-
-Création base + utilisateur
 
 Template my.cnf personnalisé
 
@@ -163,7 +150,7 @@ Rotation simple
 
 Le playbook principal site.yml déploie l’ensemble de l’infrastructure :
 
-ansible-playbook -i inventories/hosts playbooks/site.yml
+ansible-playbook playbooks/site.yml
 
 - Tests & Validation
 Service	Vérification
@@ -173,7 +160,6 @@ Web	curl http://10.0.0.4
 BDD	Connexion MySQL + requêtes
 Sauvegardes	Validation du dump + restauration
 
-Tous les tests ont été documentés dans le dossier tests de chaque rôle.
 
 - Équipe
 Nom	Rôle
@@ -182,69 +168,3 @@ Faycal	DHCP / Client
 Faycal	Web / Documentation
 Patrice	Backup / Base de Données
 
-
- Gestion du projet
-
-Le suivi a été assuré via :
-
-GitHub Project Board
-
-Rencontre de suivi chaque lundi
-
-Journal de bord ajouté dans ce README
-
- Journal de bord
-- Semaine 1
-
-Installation Proxmox
-
-Mise en place de GNS3 ESXi
-
-Création du dépôt GitHub
-
-Planification initiale
-
-- Semaine 2
-
-Début des rôles Ansible (DNS, DHCP, Web)
-
-Tests individuels sur VMs locales
-
-- Semaine 3
-
-Intégration complète sur GNS3
-
-Mise en place du serveur de base de données
-
-Tests croisés
-
-- Semaine 4
-
-Implémentation des sauvegardes
-
-Nettoyage des rôles
-
-Préparation de la présentation finale
-
-- Présentation Finale
-
-Lors de la présentation du 5 décembre, nous avons démontré :
-
-Le fonctionnement du DHCP
-
-La résolution DNS directe/inverse
-
-L’accès web
-
-Le fonctionnement de MySQL
-
-Les sauvegardes automatisées
-
-Le déploiement complet via Ansible
-
-- Exécution complète
-
-Pour tout déployer depuis zéro :
-
-cd ansible-ypf
-ansible-playbook -i inventories/hosts playbooks/site.yml
