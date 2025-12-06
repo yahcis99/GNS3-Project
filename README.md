@@ -154,14 +154,6 @@ Le playbook principal site.yml déploie l’ensemble de l’infrastructure :
 
 ansible-playbook playbooks/site.yml
 
-### Tests & Validation
-Service	Vérification
-DHCP	ip a sur client – confirmation attribution dynamique
-DNS	dig, nslookup, résolution locale et externe
-Web	curl http://10.0.0.4
-BDD	Connexion MySQL + requêtes
-Sauvegardes	Validation du dump + restauration
-
 
 ### Équipe
 
