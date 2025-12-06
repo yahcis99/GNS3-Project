@@ -27,10 +27,10 @@ nano innventories/host
 
 ### 3. Exécuter les playbooks
 
-# Déploiement complet
+#### Déploiement complet
 ansible-playbook playbooks/site.yml
 
-# Nettoyer la configuration
+#### Nettoyer la configuration
 ansible-playbook  playbooks/cleanup.yml
 
 ##  Services Déployés
@@ -39,9 +39,9 @@ ansible-playbook  playbooks/cleanup.yml
 Élément    Adresse     IP	Rôle
 dns01      10.0.0.2	   DNS Master
 dns02      10.0.0.3	   DNS Slave
-web01	     10.0.0.4	   Serveur Web
+web01	    10.0.0.4	   Serveur Web
 dhcp01	    10.0.0.5   	Serveur DHCP
-db01	      10.0.0.6	   Serveur de Base de Données
+db01	     10.0.0.6	   Serveur de Base de Données
 ```
 Nom de domaine utilisé : ypf.lab
 
@@ -80,9 +80,9 @@ ansible-ypf/
 
 Chaque rôle est entièrement automatisé via tasks, templates, handlers, et fichiers statiques.
 
- Détails des Rôles Ansible
+## Détails des Rôles Ansible
  
-- Rôle common
+### Rôle common
 
 Configuration de base pour tous les serveurs :
 
@@ -90,7 +90,7 @@ Mise à jour
 
 Paquets essentiels
 
-- Rôle dhcp
+### Rôle dhcp
 
 Déploie un serveur DHCP fonctionnel :
 
@@ -102,7 +102,7 @@ Broadcast et plage DHCP pour les clients Ubuntu
 
 Redémarrage automatique via handler
 
-- Rôle dns
+### Rôle dns
 
 Déploie deux serveur DNS :
 
@@ -118,7 +118,7 @@ Transmission (slave) pour dns02
 
 Forwarding vers DNS du CÉGEP
 
-- Rôle web
+### Rôle web
 
 Déploiement du serveur web :
 
@@ -128,7 +128,7 @@ Configuration VirtualHost
 
 Déploiement d’une page web personnalisée
 
-- Rôle bdd
+### Rôle bdd
 
 Serveur MySQL :
 
@@ -136,7 +136,7 @@ Installation
 
 Template my.cnf personnalisé
 
-- Rôle backup
+### Rôle backup
 
 Sauvegarde MySQL automatisée :
 
@@ -146,13 +146,13 @@ Cron job via playbook install_backup_cron.yml
 
 Rotation simple
 
-- Playbook principal
+### Playbook principal
 
 Le playbook principal site.yml déploie l’ensemble de l’infrastructure :
 
 ansible-playbook playbooks/site.yml
 
-- Tests & Validation
+### Tests & Validation
 Service	Vérification
 DHCP	ip a sur client – confirmation attribution dynamique
 DNS	dig, nslookup, résolution locale et externe
@@ -161,7 +161,7 @@ BDD	Connexion MySQL + requêtes
 Sauvegardes	Validation du dump + restauration
 
 
-- Équipe
+### Équipe
 Nom	Rôle
 Yahya	Ansible / DNS
 Faycal	DHCP / Client
