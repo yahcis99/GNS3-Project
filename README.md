@@ -27,10 +27,12 @@ nano innventories/host
 
 ### 3. Exécuter les playbooks
 
-#### Déploiement complet
+### Déploiement complet
+
 ansible-playbook playbooks/site.yml
 
-#### Nettoyer la configuration
+### Nettoyer la configuration
+
 ansible-playbook  playbooks/cleanup.yml
 
 ##  Services Déployés
@@ -162,9 +164,11 @@ Sauvegardes	Validation du dump + restauration
 
 
 ### Équipe
-Nom	Rôle
-Yahya	Ansible / DNS
-Faycal	DHCP / Client
-Faycal	Web / Documentation
-Patrice	Backup / Base de Données
 
+```
+Nom           Rôle
+Yahya	        Ansible / DNS
+Faycal	       DHCP / Client
+Faycal	       Web / Documentation
+Patrice      	Backup / Base de Données
+```
