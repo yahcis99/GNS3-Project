@@ -23,7 +23,7 @@ cd ansible-lab
 
 ### 2. Éditer l'inventaire
 
-nano innventories/host
+nano inventories/host
 
 ### 3. Exécuter les playbooks
 
@@ -42,7 +42,7 @@ ansible-playbook  playbooks/cleanup.yml
 dns01      10.0.0.2	   DNS Master
 dns02      10.0.0.3	   DNS Slave
 web01	   10.0.0.4	   Serveur Web
-dhcp01	   10.0.0.5   	Serveur DHCP
+dhcp01	   10.0.0.5   Serveur DHCP
 db01	   10.0.0.6	   Serveur de Base de Données
 ```
 Nom de domaine utilisé : ypf.lab
