@@ -170,5 +170,5 @@ Nom            Rôle
 Yahya	       Ansible / DNS
 Faycal	       DHCP / Client
 Faycal	       Web / Documentation
-Patrice       Backup / Base de Données
+Patrice        Backup / Base de Données
 ```
